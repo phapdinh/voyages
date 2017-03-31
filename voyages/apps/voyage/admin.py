@@ -9,6 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 
 # Define a new FlatPageAdmin
 class FlatPageAdmin(FlatPageAdmin):
+    save_as = True
     fieldsets = (
         (None, {'fields': ('url', 'title', 'content', 'sites')}),
         (_('Advanced options'), {

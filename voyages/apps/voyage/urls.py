@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from django.views.generic import TemplateView, RedirectView
 
+import voyages.apps.common.views
 import voyages.apps.voyage.views
 import voyages.apps.static_content.views
 
@@ -33,5 +34,5 @@ urlpatterns = [
     url(r'^(?P<voyage_id>[0-9]+)/images', voyages.apps.voyage.views.voyage_images, name='voyage_images'),
 
     url(r'^csv_stats_download', voyages.apps.voyage.views.csv_stats_download, name='csv_stats_download'),
-    url(r'^download', voyages.apps.voyage.views.download_flatpage, name='download')
+    url(r'^download', voyages.apps.common.views.flatfile_language, {'url' : "/voyage/download/"}, name='download')
 ]

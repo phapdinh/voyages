@@ -1,4 +1,12 @@
+from datetime import date
+
 import django
+from django.contrib.flatpages.models import FlatPage
+from django.shortcuts import render
+from django.utils.translation import get_language
+
+from voyages.apps.voyage.models import Voyage
+
 
 def set_language(request, lang_code):
     """
@@ -11,3 +19,19 @@ def set_language(request, lang_code):
     request.POST = {'language': lang_code}
     django.views.i18n.set_language(request)
     return django.http.HttpResponse(lang_code, content_type="text/plain")
+
+
+def flatfile_language(request, url):
+    lang = get_language()
+
+    #make sure url starts and end with /
+    url  = "/" + url if not url.startswith('/') else url
+    url = url + "/" if not url.endswith('/') else url
+
+    #get corret language
+    url += lang +  "/"
+
+    flatpage = FlatPage.objects.get(url=url)
+
+    return render(request, flatpage.template_name,
+                  {'flatpage': flatpage, 'num_voyages': Voyage.objects.count(), 'year': str(date.today().year)})

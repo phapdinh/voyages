@@ -4,7 +4,7 @@
 {% load humanize %}
 {% load voyage_extras %}
 
-{% block title %}{% trans 'Downloads' %}{% endblock %}
+{% block title %}{{ flatpage.title }}{% endblock %}
 
 {% block jslist %}
 <script src="{{ STATIC_URL }}scripts/navigation_voyage.js" type="text/javascript"></script>
@@ -17,7 +17,7 @@
 {% with num_voyages|intcomma as nvoyages %}
     {% with "/{num_voyages}/"|add:nvoyages as num_replace %}
         {% with "/{db_year}/"|add:year as year_replace %}
-            {% with flatpage.content|trans_log as content %}
+            {% with flatpage.content as content %}
                 {{ content|replace:num_replace|replace:year_replace|parse_blocks }}
             {% endwith %}
         {% endwith %}

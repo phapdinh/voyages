@@ -15,6 +15,7 @@ This example creates a new flat page in the education app.
 1. create url.py entry in appropriate urls.py file:
 url(r'new-page', django.contrib.flatpages.views.flatpage,
  {'url': '/education/new-page/'}, name='new-page')
+NOTE: url must start and end with a /
 
 2. In the Live Admin navigate to Flat pages and create a new entry with:
 URL: /education/new-page/
@@ -24,6 +25,10 @@ Template_Name: flatpages/education_flatpage.html
 NOTE: The Template_Name field is under Advanced > Show on each flat page record.
       Since each app has its own styling requirements, each app should have its own base flat page.
       flatpages/education_flatpage.html  can be used as a starting point if additional templaes need to be added.
+       Each language version must have its own Flatpage entry with a unique url. The last level indicates the language.
+       Example: /about/en/,  /about/pt/ .
+       NOTE: url must start and end with a /
+       NOTE: Current laguages and codes are in settings.LANGUAGES
 
 3. Make reference to the link { url ‘new-page’} somewhere on the website
 

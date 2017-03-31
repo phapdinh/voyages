@@ -1,41 +1,35 @@
 # -*- coding: utf-8 -*-
-from django.http import Http404, HttpResponseRedirect, HttpResponse, StreamingHttpResponse
-from django.db.models import Max, Min
-from django.template import TemplateDoesNotExist, loader
-from django.shortcuts import render
-from django.conf import settings
-from django.core.cache import cache
-from django.core.urlresolvers import reverse
-from django.utils.encoding import iri_to_uri
-from django.contrib.admin.views.decorators import staff_member_required
+import csv
+import json
+import re
+import time
+import urllib
+from datetime import date
 from os import listdir, stat
 from stat import ST_SIZE, ST_MTIME
-from hurry.filesize import size
-from django.core.paginator import Paginator
-import time
-import types
-import csv
-import re
-from .forms import *
-from haystack.query import SearchQuerySet
-import globals
-import bitly_api
-import requests
-import json
-import xlwt
-from openpyxl import Workbook
-import urllib
+
 import unidecode
-from itertools import groupby
+import xlwt
+from django.conf import settings
+from django.contrib.admin.views.decorators import staff_member_required
+from django.core.paginator import Paginator
+from django.core.urlresolvers import reverse
+from django.http import Http404, HttpResponseRedirect, HttpResponse
+from django.shortcuts import render
+from django.template import TemplateDoesNotExist, loader
+from django.utils.translation import ugettext as _
 from django.views.decorators.gzip import gzip_page
-from datetime import date
+from haystack.query import SearchQuerySet
+from hurry.filesize import size
+from openpyxl import Workbook
+
+import globals
+from cache import VoyageCache, CachedGeo
+from graphs import *
 from voyages.apps.assessment.globals import get_map_year
 from voyages.apps.common.export import download_xls
-from django.utils.translation import ugettext as _
-from django.utils.translation import get_language
-from cache import VoyageCache, CachedGeo
 from voyages.apps.common.models import get_pks_from_haystack_results
-from graphs import *
+from .forms import *
 
 # Here we enumerate all fields that should be cleared
 # from the session if a reset is required.
@@ -128,22 +122,6 @@ def download_file(request):
 
     return render(request, templatename, {'form': form, 'uploaded_files': uploaded_files_info})
 
-def download_flatpage(request):
-    from django.contrib.flatpages.models import FlatPage
-    page_title = 'Downloads'
-    lang = get_language()
-    flatpage = None
-    if lang != 'en':
-        try:
-            flatpage = FlatPage.objects.get(title=page_title + '_' + lang)
-        except:
-            pass
-    if flatpage is None:
-        flatpage = FlatPage.objects.get(title=page_title)
-    from datetime import date
-    return render(request,
-                  'flatpages/download.html',
-                  {'flatpage': flatpage, 'num_voyages': Voyage.objects.count(), 'year': str(date.today().year)})
 
 def handle_uploaded_file(f):
     """
