@@ -21,7 +21,7 @@ def set_language(request, lang_code):
     return django.http.HttpResponse(lang_code, content_type="text/plain")
 
 
-def flatfile_language(request, url):
+def flatpage_language(request, url):
     lang = get_language()
 
     #make sure url starts and end with /

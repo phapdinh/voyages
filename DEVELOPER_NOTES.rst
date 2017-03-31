@@ -13,13 +13,14 @@ This example creates a new flat page that can be accessed at */education/new-pag
 
 create url.py entry in education/urls.py file::
 
-  url(r'^new-page', voyages.apps.common.views.flatfile_language, {'url' : "/education/new-page/"}, name='new-page')
+  url(r'^new-page', voyages.apps.common.views.flatpage_language, {'url' : "/education/new-page/"}, name='new-page')
 
 .. NOTE::
 
   The **url** parameter must start and end with a ``/``
 
-In the Live Admin navigate to Flatpages and create a new entry with:
+In the Live Admin navigate to Flatpages and create a new entry. You can make a copy of an existing object by
+ using the ``Save As New`` button. Create the new FlatPage with the following fields:
   | **URL:** /education/new-page/``<LANG-CODE>``
   | **Title:** New Page
   | **Content:** HTML CONTENT FOR THAT LANGUAGE

@@ -1,29 +1,9 @@
 from django.contrib import admin
-from django.contrib.flatpages.models import FlatPage
-from autocomplete_light import shortcuts as autocomplete_light
-from .forms import *
 from django.contrib.flatpages.admin import FlatPageAdmin
 from django.contrib.flatpages.models import FlatPage
-from django.utils.translation import ugettext_lazy as _
 
+from .forms import *
 
-# Define a new FlatPageAdmin
-class FlatPageAdmin(FlatPageAdmin):
-    save_as = True
-    fieldsets = (
-        (None, {'fields': ('url', 'title', 'content', 'sites')}),
-        (_('Advanced options'), {
-            'classes': ('collapse', ),
-            'fields': (
-                'registration_required',
-                'template_name',
-            ),
-        }),
-    )
-    class Media:
-        js = ('scripts/tiny_mce/tinymce.min.js',
-          'scripts/tiny_mce/textareas.js',
-          )
 
 
 # Voyage Admin
@@ -320,11 +300,6 @@ class VoyageAdmin(admin.ModelAdmin):
 
     class Meta:
         fields = '__all__'
-
-
-# Re-register FlatPageAdmin
-admin.site.unregister(FlatPage)
-admin.site.register(FlatPage, FlatPageAdmin)
 
 # Voyage
 # Regions, Places
