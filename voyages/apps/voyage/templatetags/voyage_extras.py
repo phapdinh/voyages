@@ -13,7 +13,7 @@ def parse_blocks(value):
     out rendered content
     """
     t = Template(value)
-    c = Context({'MEDIA_URL': settings.MEDIA_URL})
+    c = Context({'MEDIA_URL': settings.MEDIA_URL, 'STATIC_URL': settings.STATIC_URL})
     return t.render(c)
 
 

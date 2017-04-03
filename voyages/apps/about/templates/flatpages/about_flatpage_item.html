@@ -1,11 +1,14 @@
 {% extends "base.html" %}
+{% load voyage_extras %}
 
 <!-- This is the basic template to be inherited from
 for all pages in the About section (except for the index page)-->
-{% block title %}About the Project{% endblock %}
+{% block title %}{{ flatpage.title }}{% endblock %}
 
 {% block csslist %}
 <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/about/about.css">
+<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/about/about-team.css">
+<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/about/about-acks.css">
 	{% block pagecsslist %}
 		
 	{% endblock %}
@@ -20,7 +23,8 @@ for all pages in the About section (except for the index page)-->
 
 	<div id="center-content">	
 		<div id="center-content-inner">
-			{% block center-content %}	
+			{% block center-content %}
+			    {{ flatpage.content|parse_blocks }}
 			{% endblock %}
 		</div>
 	</div>
@@ -29,4 +33,3 @@ for all pages in the About section (except for the index page)-->
 {% block footer %}
 	{% include "footer.html" %}
 {% endblock %}
-

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load voyage_extras %}
+
+{% block title %}{{ flatpage.title }}{% endblock %}
+
+{% block csslist %}
+<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/section-index.css">
+<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/about/about.css">
+<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/about/about-index.css">
+{% endblock %}
+
+<div id="main-body-div" style="display: table; height:100%; width:100%;">
+{% block content %}
+    {{ flatpage.content|parse_blocks }}
+	{% endblock %}
+</div>
+
+{% block footer %}
+{% include "footer.html" %}
+{% endblock %}

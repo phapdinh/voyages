@@ -4,11 +4,10 @@ from django.views.generic import TemplateView
 import voyages.apps.static_content.views
 
 urlpatterns = [
-    url(r'^$', voyages.apps.static_content.views.get_static_content, {'group': 'About'}, name='index'),
-    url(r'^history', TemplateView.as_view(template_name='about/history.html'), name='history'),
-    url(r'^team', TemplateView.as_view(template_name='about/team.html'), name='team'),
-    url(r'^data', TemplateView.as_view(template_name='about/data.html'), name='data'),
-    url(r'^acknowledgements',
-        TemplateView.as_view(template_name='about/acknowledgements.html'), name='acknowledgements'),
-    url(r'^origins', TemplateView.as_view(template_name='about/origins.html'), name='origins'),
-    url(r'^contacts', TemplateView.as_view(template_name='about/contacts.html'), name='contacts')]
+    url(r'^$', voyages.apps.common.views.flatpage_language, {'url' : "/about/index/"}, name='index'),
+    url(r'^history', voyages.apps.common.views.flatpage_language, {'url' : "/about/history/"}, name='history'),
+    url(r'^team', voyages.apps.common.views.flatpage_language, {'url' : "/about/team/"}, name='team'),
+    url(r'^data', voyages.apps.common.views.flatpage_language, {'url' : "/about/data/"}, name='data'),
+    url(r'^acknowledgements', voyages.apps.common.views.flatpage_language, {'url' : "/about/acknowledgements/"}, name='acknowledgements'),
+    url(r'^origins', voyages.apps.common.views.flatpage_language, {'url' : "/about/origins/"}, name='origins'),
+    url(r'^contacts', voyages.apps.common.views.flatpage_language, {'url' : "/about/contacts/"}, name='contacts')]

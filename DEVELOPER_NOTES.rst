@@ -35,7 +35,8 @@ In the Live Admin navigate to Flatpages and create a new entry. You can make a c
   Example: ``/about/en/`` or  ``/about/pt/`` .
   The value of the url field must start and end with a ``/``
   Current laguages and codes are in **settings.LANGUAGES**.
-  Variables referenced like ``{{name}}`` can be stored in the Flatpage object, template tags or filters will not be resolved.
+  Variables ``{{ STATIC_UR }}`` and ``{{ MEDIA_URL }}`` can be stored in the Flatpage object. Template tags and filters
+  will not be resolved. To add additional variables to be resolved modigy the *parse_blocks* template filter.
 
 Make reference to the link *{ url ‘new-page’}* somewhere on the website
 

@@ -5,7 +5,7 @@ group_templates = {"Voyage": "voyages-index.html",
                    "Assessment": "assessment-index.html",
                    "Resources": "resources-index.html",
                    "Educational Materials": "education-index.html",
-                   "About": "about-index.html"}
+                   }
 
 
 def get_static_content(request, group=None):
