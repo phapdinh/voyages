@@ -27,11 +27,17 @@ def flatpage_language(request, url):
     #make sure url starts and end with /
     url  = "/" + url if not url.startswith('/') else url
     url = url + "/" if not url.endswith('/') else url
+    non_lang_url = url
 
-    #get corret language
+    #get current language
     url += lang +  "/"
 
-    flatpage = FlatPage.objects.get(url=url)
+    flatpage = None
+    try:
+        flatpage = FlatPage.objects.get(url=url)
+    # if flatpage does no have language varents
+    except:
+        flatpage = FlatPage.objects.get(url=non_lang_url)
 
     return render(request, flatpage.template_name,
                   {'flatpage': flatpage, 'num_voyages': Voyage.objects.count(), 'year': str(date.today().year)})
