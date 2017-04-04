@@ -8,5 +8,4 @@ urlpatterns = [
     url(r'^$', voyages.apps.static_content.views.get_static_content,
         {'group': 'Educational Materials'}, name='index'),
     url(r'lesson-plans', voyages.apps.education.views.lessonplan, name='lesson-plans'),
-    url(r'web-resources', django.contrib.flatpages.views.flatpage,
-        {'url': '/education/web-resources/'}, name='web-resources')]
+    url(r'web-resources', voyages.apps.common.views.flatpage_language, {'url': '/education/web-resources/'}, name='web-resources')]
