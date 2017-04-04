@@ -32,11 +32,14 @@ In the Live Admin navigate to Flatpages and create a new entry. You can make a c
   ``flatpages/education_flatpage.html``  can be used as a starting point if additional templae files need to be added.
   Each language version must have its own Flatpage entry in the database with a unique value in the url field. The
   last level of the url indicates the language.
-  Example: ``/about/en/`` or  ``/about/pt/`` .
+  Example: ``/about/en/`` or  ``/about/pt/`` . If the page does not need to be translated, there should only be one version
+  of the flatpage and the url field should not contain a language code Example: ``/education/new-page/``
   The value of the url field must start and end with a ``/``
   Current laguages and codes are in **settings.LANGUAGES**.
-  Variables ``{{ STATIC_UR }}`` and ``{{ MEDIA_URL }}`` can be stored in the Flatpage object. Template tags and filters
-  will not be resolved. To add additional variables to be resolved modigy the *parse_blocks* template filter.
+  Variables ``{{ STATIC_UR }}`` and ``{{ MEDIA_URL }}`` can be stored in the Flatpage object. It recomended to retain
+  these variables in the Flatpage in case there are config changes in the future.
+  Template tags and filters will not be resolved. To add additional variables to be resolved, modify the *parse_blocks* template filter.
+
 
 Make reference to the link *{ url ‘new-page’}* somewhere on the website
 
@@ -52,3 +55,21 @@ Load the remaing entries::
 
   $ python ./manage.py loaddata <PATH-TO-INPUT-FILE>
 
+
+
+To obtain the html content
+--------------------------
+* Option 1: Edit the content directly in the GUI editor. This is good for small sections or making corrections.
+* Option 2: In the GUI editor select **Tools > Source** to edit or paste HTML directly. This is good for entire pages
+  or large sections.
+
+.. NOTE::
+
+  If you do not have the source HTML (or it is not fully resolved due to variables) you can use the *Chrome* browser to
+  inspect and extract the section of HTML you need.
+#. Right click on the section of the page you want to copy
+#. Select *inspect* from the contenxt menu
+#. locate the block of code you want to copy
+#. Right click and select Edit HTML
+#. Select all the HTML in the new window
+#. You can then paste that directly into the editor (Option 2 above)
