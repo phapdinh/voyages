@@ -1504,6 +1504,7 @@ summary_statistics = [
      'has_total' : False, 'is_percentage' : False},
 ]
 
+#It is impportant to keep this list in numarical order
 methodology_items = [
     {'number': 1,
      'name': "Introduction",

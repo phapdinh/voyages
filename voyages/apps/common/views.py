@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.utils.translation import get_language
 
 from voyages.apps.voyage.models import Voyage
+from voyages.apps.voyage.globals import methodology_items as meth
 
 
 def set_language(request, lang_code):
@@ -21,15 +22,26 @@ def set_language(request, lang_code):
     return django.http.HttpResponse(lang_code, content_type="text/plain")
 
 
-def flatpage_language(request, url):
+def flatpage_language(request, url, num=None):
     lang = get_language()
 
     #make sure url starts and end with /
     url  = "/" + url if not url.startswith('/') else url
     url = url + "/" if not url.endswith('/') else url
-    non_lang_url = url
 
-    #get current language
+    #case for methodology urls
+    left=None
+    right=None
+    pagename=None
+    if num:
+        url += '%s/' % num
+        left = meth[num-2] if num !=1 else ''
+        right = meth[num] if num != len(meth) else ''
+        pagename = meth[num-1]['page']
+
+    non_lang_url = url # for pages that will not be translated
+
+    #get page for current language
     url += lang +  "/"
 
     flatpage = None
@@ -40,4 +52,5 @@ def flatpage_language(request, url):
         flatpage = FlatPage.objects.get(url=non_lang_url)
 
     return render(request, flatpage.template_name,
-                  {'flatpage': flatpage, 'num_voyages': Voyage.objects.count(), 'year': str(date.today().year)})
+                  {'flatpage': flatpage, 'num_voyages': Voyage.objects.count(), 'year': str(date.today().year),
+                   'left': left, 'right': right, 'pagename': pagename})

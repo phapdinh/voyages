@@ -15,7 +15,19 @@ urlpatterns = [
     url(r'^source',
         voyages.apps.voyage.views.sources_list, name='sources-list-default'),
     url(r'^$', voyages.apps.static_content.views.get_static_content, {'group': 'Voyage'}, name='index'),
+
+    #These are Flat pages. Make sure to include the methodology number in num
+    url(r'^understanding-db/methodology-1$', voyages.apps.common.views.flatpage_language, {'url' : "/voyage/methodology/", 'num': 1}, name='meth-intro'),
+    url(r'^understanding-db/methodology-2$', voyages.apps.common.views.flatpage_language, {'url' : "/voyage/methodology/", 'num': 2}, name='meth-coverage'),
+    url(r'^understanding-db/methodology-3$', voyages.apps.common.views.flatpage_language, {'url' : "/voyage/methodology/", 'num': 3}, name='meth-sources'),
+    url(r'^understanding-db/methodology-4$', voyages.apps.common.views.flatpage_language, {'url' : "/voyage/methodology/", 'num': 4}, name='meth-cases-variables'),
+    url(r'^understanding-db/methodology-5$', voyages.apps.common.views.flatpage_language, {'url' : "/voyage/methodology/", 'num': 5}, name='meth-data-variables'),
+    url(r'^understanding-db/methodology-15$', voyages.apps.common.views.flatpage_language, {'url' : "/voyage/methodology/", 'num': 15}, name='imputing-slaves'),
+    url(r'^understanding-db/methodology-21$', voyages.apps.common.views.flatpage_language, {'url' : "/voyage/methodology/", 'num': 21}, name='methappendix'),
+
+    # The rest of these are processed by this view
     url(r'^understanding-db/(?P<name>.*)', voyages.apps.voyage.views.understanding_page, name='understanding-page'),
+
     url(r'^understanding-db', voyages.apps.voyage.views.understanding_page, name='guide'),
 
     url(r'^c01_s01_cover', TemplateView.as_view(template_name='voyage/guide.html'), name='voyage-guide-intro'),
