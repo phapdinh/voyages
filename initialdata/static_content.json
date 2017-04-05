@@ -213,15 +213,5 @@
         "order": 0,
         "group": 4
     }
-},
-{
-    "model": "static_content.contentpage",
-    "pk": 20,
-    "fields": {
-        "title": "Web Resources",
-        "description": "The websites listed here provide a variety of resources, including but not limited to lesson plans, interactive maps, and narratives of enslaved Africans.",
-        "order": 1,
-        "group": 4
-    }
 }
 ]
