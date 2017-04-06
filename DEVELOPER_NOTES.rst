@@ -72,4 +72,4 @@ To obtain the html content
 #. locate the block of code you want to copy
 #. Right click and select Edit HTML
 #. Select all the HTML in the new window
-#. You can then paste that directly into the editor (Option 2 above)
+#. You can paste that directly into the editor (Option 2 above)
