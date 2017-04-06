@@ -29,6 +29,8 @@ from graphs import *
 from voyages.apps.assessment.globals import get_map_year
 from voyages.apps.common.export import download_xls
 from voyages.apps.common.models import get_pks_from_haystack_results
+from django.utils.translation import get_language
+from django.contrib.flatpages.models import FlatPage
 from .forms import *
 
 # Here we enumerate all fields that should be cleared
@@ -87,6 +89,8 @@ def understanding_page(request, name='guide'):
         dictionary['title'] = "Variable List"
         dictionary['var_list_stats'] = variable_list()
         dictionary['page'] = 'voyage/variable-list.html'
+        variable_list_block = FlatPage.objects.get(url='/voyage/variable-list/' + get_language() + '/')
+        dictionary['objs'] = [variable_list_block]
     else:
         dictionary['page'] = 'voyage/' + name + ".html"
         dictionary['title'] = 'Guide'
