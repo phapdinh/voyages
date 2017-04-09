@@ -913,7 +913,3 @@ div.secondary-bar td, div.secondary-bar th {
 
 /* url fields */
 input#id_url { width: 300px; }
-
-/*  make text area for Flat pages larger */
-textarea#id_content {height: 900px;}
-
