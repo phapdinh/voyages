@@ -5,7 +5,7 @@ body {
 
 a {
 	color: #165B31;
-    text-decoration: none}
+    text-decoration: underline;}
 
 div.licence {
 	border-color: #165B31; }
