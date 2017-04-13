@@ -127,7 +127,7 @@
                     <tr>
                         <td>
                             {% trans 'Voyage ID' %} =
-                            {{ i.voyage_id }} - {{ i.voyage_vessel_name }}, {{ i.voyage_imp_voyage_began|get_year_value }}
+                            <a href="{% url 'voyage:voyage_variables' voyage_id=i.voyage_id %}">{{ i.voyage_id }}</a> - {{ i.voyage_vessel_name }}, {{ i.voyage_imp_voyage_began|get_year_value }}
                         </td>
                     </tr>
                     </tbody>
