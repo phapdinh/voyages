@@ -29,6 +29,7 @@ from graphs import *
 from voyages.apps.assessment.globals import get_map_year
 from voyages.apps.common.export import download_xls
 from voyages.apps.common.models import get_pks_from_haystack_results
+from voyages.apps.resources.models import Image
 from django.utils.translation import get_language
 from django.contrib.flatpages.models import FlatPage
 from .forms import *
@@ -554,11 +555,41 @@ def voyage_images(request, voyage_id):
     """
     Displays the images for a voyage
     """
+
+    #get spcific sort positon for each group
+    #TODO the images portion should be rewitten to allow lookup by url and and not depend on sort order or sessions
+
+    image_lookup = {}
+    image_lookup["Manuscripts"] = {}
+    image_lookup["Slaves"] = {}
+    image_lookup["Places"] = {}
+    image_lookup["Vessels"] = {}
+
+    manuscripts = SearchQuerySet().models(Image).filter(category_label="Manuscripts", ready_to_go=True).order_by('date')
+    for idx, m in enumerate(manuscripts):
+        image_lookup['Manuscripts'][int(m.pk)] = int(idx+1)
+
+    places = SearchQuerySet().models(Image).filter(category_label="Places", ready_to_go=True).order_by('date')
+    for idx, p in enumerate(places):
+        image_lookup['Places'][int(p.pk)] = int(idx+1)
+
+    slaves = SearchQuerySet().models(Image).filter(category_label="Slaves", ready_to_go=True).order_by('date')
+    for idx, s in enumerate(slaves):
+        image_lookup['Slaves'][int(s.pk)] = int(idx+1)
+
+    vessels = SearchQuerySet().models(Image).filter(category_label="Vessels", ready_to_go=True).order_by('date')
+    for idx, v in enumerate(vessels):
+        image_lookup['Vessels'][int(v.pk)] = int(idx+1)
+
+
     voyage = first_match(SearchQuerySet().models(Voyage).filter(var_voyage_id=int(voyage_id)))
+    images = [{'id': i.id, 'num': image_lookup[i.category.label][int(i.id)], 'title': i.title, 'url': i.file.url, 'category': i.category.label} for i in Image.objects.filter(voyage__voyage_id=voyage_id)]
+
     return render(request, "voyage/voyage_info.html",
                   {'tab': 'images',
                    'voyage_id': voyage_id,
-                   'voyage': voyage})
+                   'voyage': voyage,
+                   'images': images})
 
 def voyage_variables_data(voyage_id, show_imputed=True):
     voyagenum = int(voyage_id)
