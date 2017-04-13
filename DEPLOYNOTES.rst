@@ -318,3 +318,55 @@ command periodically from within the application's virtual environment::
 This script removes any expired sessions from the database. We recommend
 doing this about every week, though exact timing depends on usage patterns
 and administrative discretion.
+
+
+Upgrade Notes
+=============
+
+Release 1.3.2
+-------------
+**Pre-Deploy***
+
+* If not done so already use git-flow to merge feature/edit-pages back into develop::
+
+
+  $ git flow feature track feature/edit-pages
+  $ git flow feature pull feature/edit-pages
+  $ git flow feature finish feature/edit-pages
+
+* Use git-flow to create a new release (make sure the version number is set corrctly)::
+
+  $ git flow release start 1.3.2
+
+* Make any last min changes like version number etc. and finish the release::
+
+  $ git flow release finish 1.3.2
+
+**Deploy**
+
+* Switch to the ``master`` branch
+* On the target machine export the *Flatpage* and *Static Content* data in case this has to be restored.
+  Once the relese is "Good" the exports can be removed::
+
+  $ python ./manage.py dumpdata flatpages --indent=4 > /tmp/flatpages.json
+  $ python ./manage.py dumpdata static_content --indent=4 > /tmp/static_content.json
+
+* Fab deploy the code to the target machine ``fab deploy -H <HOSTNAME>``
+* Delete all the ``Flat pages``, ``Static Content Pages`` and ``Static Content Groups``. It is probably eaisiest to do
+  this through the Admin.
+* Load the new Flat Pages and Static Content::
+
+  $ python ./manage.py loaddata initialdata/flatpages.json
+  $ python ./manage.py loaddata initialdata/static_content.json
+
+**Post-Deploy**
+
+* Once the release is  "Good" remove the json  exports
+* push master, develop and tags to Github and remove remote feature branch::
+
+    $ git checkout master
+    $ git push
+    $ git push checkout develop
+    $ git push
+    $ git push --tags
+    $  git push origin --delete feature/edit-pages
