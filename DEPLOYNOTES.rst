@@ -325,7 +325,7 @@ Upgrade Notes
 
 Release 1.3.2
 -------------
-**Pre-Deploy***
+**Pre-Deploy**
 
 * If not done so already use git-flow to merge feature/edit-pages back into develop::
 
